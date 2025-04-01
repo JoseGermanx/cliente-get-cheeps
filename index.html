@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Cheeps!!</title>
+    <style>
+      #tweet-container,
+      h1 {
+        width: 500px;
+        margin: auto;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: #2c2c2c 0px 0px 5px 0px;
+      }
+      .tweet {
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        background-color: #f8f8f8;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      h1 {
+        text-align: center;
+        background-color: rgb(15, 27, 23);
+        color: blanchedalmond;
+      }
+      #count {
+        display: block;
+        text-align: right;
+        margin-top: 10px;
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+  <body onload="setTimeout(getCheeps, 1000)">
+    <div class="top"><h1>Cheeps!!</h1></div>
+    <div id="tweet-container">
+        <p id="cargando">Cargando cheeps!!...</p>
+        <span id="count"></span>
+    </div>
+    <script>
+      const getCheeps = () => {
+        const url = "https://3bda700d-ebe7-421a-bbc1-20cb9289f0cc-00-c4yvkdzp1nlg.janeway.replit.dev/get_cheeps";
+        fetch(url) // Aquí se cerró correctamente el paréntesis
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            const cargando = document.getElementById("cargando");
+            if (cargando) cargando.remove(); // Asegurarse de que el elemento existe antes de eliminarlo
+            const tweetContainer = document.getElementById("tweet-container");
+            tweetContainer.style.textWrap = "wrap";
+            tweetContainer.style.overflow = "hidden";
+            const countSpan = document.getElementById('count');
+            countSpan.textContent = data.length + " cheeps!!";
+            data.forEach((tweet) => {
+              const tweetElement = document.createElement("div");
+              tweetElement.classList.add("tweet");
+              tweetElement.textContent = tweet;
+              tweetContainer.appendChild(tweetElement);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            const cargando = document.getElementById("cargando");
+            if (cargando) cargando.textContent = "Error al cargar los cheeps.";
+          });
+      };
+    </script>
+</body>
+</html>

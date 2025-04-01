@@ -34,6 +34,20 @@
         margin-top: 10px;
         font-size: 1.5em;
       }
+
+      /* crear breakpoint para pantallas pequeñas */
+      @media (max-width: 600px) {
+        #tweet-container,
+        h1 {
+          width: 100%;
+          margin: 0;
+          border-radius: 0;
+          box-shadow: none;
+        }
+        .tweet {
+          margin-bottom: 5px;
+        }
+      }
     </style>
   </head>
   <body onload="setTimeout(getCheeps, 1000)">
